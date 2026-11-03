@@ -1,23 +1,29 @@
 import './auth.css';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Auth() {
-
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+
+    function handleSubmit(e){
+        e.preventDefault();
+        navigate('/topics');
+    }
 
     return (
-        <div className = "outer-container">
-            <div className = "nav-bar">
-                <Link to = '/' className = 'back-button'>Back</Link>
+        <div className = "auth-outer-container">
+            <div className = "auth-nav-bar">
+                <Link to = '/' className = 'auth-back-button'>Hacklingo</Link>
             </div>
-            <div className = "container">
-                <div className = "log-in-container">
-                    <div>Log In</div>
-                    <form className = "form">
-                        <label htmlFor = "email">Email</label>
+            <div className = "auth-container">
+                <div className = "auth-log-in-container">
+                    <div className = "auth-title">Log In</div>
+                    <form onSubmit = {handleSubmit} className = "auth-form">
+                        <label htmlFor = "email" className = "auth-label">Email</label>
                         <input
+                            className = "auth-input"
                             id = "email"
                             type = "email"
                             value = {email}
@@ -25,8 +31,9 @@ function Auth() {
                             onChange = {(e) => setEmail(e.target.value)}
                         />
 
-                        <label htmlFor = "password">Password</label>
+                        <label htmlFor = "password" className = "auth-label">Password</label>
                         <input
+                            className = "auth-input"
                             id = "password"
                             type = "password"
                             value = {password}
@@ -34,7 +41,7 @@ function Auth() {
                             onChange = {(e) => setPassword(e.target.value)}
                         />
 
-                        <button type = "submit">Submit</button>
+                        <button className = "auth-submit" type = "submit">Submit</button>
                     </form>
                 </div>
             </div>

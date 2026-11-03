@@ -1,19 +1,18 @@
-.outer-container{
+.auth-outer-container{
     display: flex;
     flex-direction: column;
+    height: 100vh;
 }
 
-.container {
+.auth-container {
     display: flex;
     flex: 1;
     justify-content: center;
     align-items: center;
 }
 
-.log-in-container {
-    border-color: black;
-    border-width: 3px;
-    border-style: solid;
+.auth-log-in-container {
+    border: black 3px solid;
     padding: 2rem;
     border-radius: 15px;
     display: flex;
@@ -22,15 +21,15 @@
     gap: 2rem;
 }
 
-.form {
+.auth-form {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
 }
 
-.nav-bar {
-    background-color: lightgray;
+.auth-nav-bar {
+    border-bottom: black 2px solid;
     height: 3rem;
     width: calc(100vw - 3rem);
     display: flex;
@@ -38,12 +37,34 @@
     align-items: center;
 }
 
-.back-button {
+.auth-back-button {
     font-size: 1.5rem;
     text-decoration: none;
     color: black;
 }
 
-.back-button:hover {
+.auth-back-button:hover {
     color: #af6be3;
+}
+
+.auth-label {
+    font-size: 1.25rem;
+}
+
+.auth-title {
+    font-size: 1.5rem;
+}
+
+.auth-input {
+    padding: 0.75em;
+    font-size: 0.9rem;
+}
+
+.auth-submit {
+    background-color: white;
+    border: black 2px solid;
+    font-size: 1.25rem;
+    border-radius: 5px;
+    padding: 0.5rem;
+    margin-top: 1rem;
 }
