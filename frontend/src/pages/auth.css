@@ -53,6 +53,7 @@
 
 .auth-title {
     font-size: 1.5rem;
+    font-weight: bold;
 }
 
 .auth-input {
@@ -67,4 +68,13 @@
     border-radius: 5px;
     padding: 0.5rem;
     margin-top: 1rem;
+    cursor: pointer;
+}
+
+.auth-sign-up-link {
+    cursor: pointer;
+}
+
+.auth-sign-up-link:hover {
+    color: #af6be3;
 }
