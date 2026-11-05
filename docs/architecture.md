@@ -6,3 +6,6 @@
 | Frontend UI | React |
 | Build | Vite |
 | Navigation | React Router |
+| Backend | Node.js |
+| Backend Framework | Express |
+| Database | Supabase |
