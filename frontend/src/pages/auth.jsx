@@ -6,11 +6,32 @@ function Auth() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showSignUp, setShowSignUp] = useState(false);
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
-    function handleSubmit(e){
+    async function handleSubmit(e){
         e.preventDefault();
-        navigate('/topics');
+        setError('');
+        setLoading(true);
+        try {
+            const res = await fetch('/api/users', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password }),
+            });
+
+            if(!res.ok){ // Client side error
+                setError('Something went wrong');
+                return
+            }
+            navigate('/topics');
+        } catch {
+            // Server side error
+            setError('Something went wrong');
+        } finally {
+            setLoading(false);
+        }
     }
 
     return (
@@ -43,12 +64,13 @@ function Auth() {
                                 onChange = {(e) => setPassword(e.target.value)}
                             />
 
-                            <button className = "auth-submit" type = "submit">Submit</button>
+                            <button className = "auth-submit" type = "submit">Log In</button>
                         </form>
                         <div style = {{display: "flex", flexDirection: "column", alignItems: "center", gap: "0.25rem"}}>
                             <div>Don't have an account yet?</div>
                             <div>Click here to <span onClick = {() => setShowSignUp(true)} className = "auth-sign-up-link">sign up</span>!</div>
                         </div>
+                        <div className = "auth-error">{error}</div>
                     </div>
                 }
 
@@ -76,12 +98,13 @@ function Auth() {
                                 onChange = {(e) => setPassword(e.target.value)}
                             />
 
-                            <button className = "auth-submit" type = "submit">Submit</button>
+                            <button className = "auth-submit" type = "submit">Sign Up</button>
                         </form>
                         <div style = {{display: "flex", flexDirection: "column", alignItems: "center", gap: "0.25rem"}}>
                             <div>Already have an account? </div>
-                            <div>Click here to <span onClick = {() => setShowSignUp(false)} className = "auth-sign-up-link">sign in</span>!</div>
+                            <div>Click here to <span onClick = {() => setShowSignUp(false)} className = "auth-sign-up-link">log in</span>!</div>
                         </div>
+                        <div className = "auth-error">{error}</div>
                     </div>
                 }
             </div>
