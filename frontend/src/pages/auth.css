@@ -78,3 +78,7 @@
 .auth-sign-up-link:hover {
     color: #af6be3;
 }
+
+.auth-error{
+    color: red;
+}
