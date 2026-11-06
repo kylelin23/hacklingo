@@ -1,4 +1,4 @@
 # APIs
 | API Path | Method | Description |
 | -------- | ------ | ----------- |
-| /users | GET | Gets all current users |
+| /users | GET | Gets all current signed up users |
