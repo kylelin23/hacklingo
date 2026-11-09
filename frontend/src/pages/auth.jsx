@@ -21,13 +21,12 @@ function Auth() {
                 body: JSON.stringify({ email, password }),
             });
 
-            if(!res.ok){ // Client side error
+            if(!res.ok){
                 setError('Something went wrong');
                 return
             }
             navigate('/topics');
         } catch {
-            // Server side error
             setError('Something went wrong');
         } finally {
             setLoading(false);
