@@ -10,7 +10,7 @@ function Auth() {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
-    async function handleSubmit(e){
+    async function handleSignUp(e){
         e.preventDefault();
         setError('');
         setLoading(true);
@@ -36,6 +36,10 @@ function Auth() {
         } finally {
             setLoading(false);
         }
+    }
+
+    async function handleSignIn(e){
+        
     }
 
     return (
@@ -80,7 +84,7 @@ function Auth() {
                 {showSignUp === true &&
                     <div className = "auth-log-in-container">
                         <div className = "auth-title">Sign Up</div>
-                        <form onSubmit = {handleSubmit} className = "auth-form">
+                        <form onSubmit = {handleSignUp} className = "auth-form">
                             <label htmlFor = "email" className = "auth-label">Email</label>
                             <input
                                 className = "auth-input"
