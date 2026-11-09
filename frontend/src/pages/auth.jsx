@@ -22,7 +22,12 @@ function Auth() {
             });
 
             if(!res.ok){
-                setError('Something went wrong');
+                if(res.status === 409){
+                    setError("User already registered");
+                }
+                else{
+                    setError('Something went wrong');
+                }
                 return
             }
             navigate('/topics');
@@ -42,7 +47,7 @@ function Auth() {
                 {showSignUp === false &&
                     <div className = "auth-log-in-container">
                         <div className = "auth-title">Log In</div>
-                        <form onSubmit = {handleSubmit} className = "auth-form">
+                        <form className = "auth-form">
                             <label htmlFor = "email" className = "auth-label">Email</label>
                             <input
                                 className = "auth-input"
@@ -62,8 +67,7 @@ function Auth() {
                                 required
                                 onChange = {(e) => setPassword(e.target.value)}
                             />
-
-                            <button className = "auth-submit" type = "submit">Log In</button>
+                            <button className = "auth-submit" type = "submit" disabled = {loading}>{loading ? 'Loading...' : 'Log In'}</button>
                         </form>
                         <div style = {{display: "flex", flexDirection: "column", alignItems: "center", gap: "0.25rem"}}>
                             <div>Don't have an account yet?</div>
@@ -97,7 +101,7 @@ function Auth() {
                                 onChange = {(e) => setPassword(e.target.value)}
                             />
 
-                            <button className = "auth-submit" type = "submit">Sign Up</button>
+                            <button className = "auth-submit" type = "submit" disabled = {loading}>{loading ? 'Loading...' : 'Sign Up'}</button>
                         </form>
                         <div style = {{display: "flex", flexDirection: "column", alignItems: "center", gap: "0.25rem"}}>
                             <div>Already have an account? </div>
