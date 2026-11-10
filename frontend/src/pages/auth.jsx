@@ -25,6 +25,9 @@ function Auth() {
                 if(res.status === 409){
                     setError("User already registered");
                 }
+                else if(res.status === 400){
+                    setError("Email and password are required")
+                }
                 else{
                     setError('Something went wrong');
                 }
@@ -39,7 +42,36 @@ function Auth() {
     }
 
     async function handleSignIn(e){
-        
+        e.preventDefault();
+        setError('');
+        setLoading(true);
+        try {
+            const res = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password }),
+            });
+
+            if(!res.ok){
+                if(res.status === 401){
+                    setError('Invalid credentials');
+                }
+                else if(res.status === 400){
+                    setError('Email and password are required');
+                }
+                else{
+                    setError('Something went wrong');
+                }
+                return;
+            }
+            const data = await res.json();
+            localStorage.setItem('token', data.token);
+            navigate('/topics');
+        } catch {
+            setError('Something went wrong');
+        } finally {
+            setLoading(false);
+        }
     }
 
     return (
@@ -51,7 +83,7 @@ function Auth() {
                 {showSignUp === false &&
                     <div className = "auth-log-in-container">
                         <div className = "auth-title">Log In</div>
-                        <form className = "auth-form">
+                        <form onSubmit = {handleSignIn} className = "auth-form">
                             <label htmlFor = "email" className = "auth-label">Email</label>
                             <input
                                 className = "auth-input"
@@ -75,7 +107,10 @@ function Auth() {
                         </form>
                         <div style = {{display: "flex", flexDirection: "column", alignItems: "center", gap: "0.25rem"}}>
                             <div>Don't have an account yet?</div>
-                            <div>Click here to <span onClick = {() => setShowSignUp(true)} className = "auth-sign-up-link">sign up</span>!</div>
+                            <div>Click here to <span onClick = {() => {
+                                    setShowSignUp(true);
+                                    setError('');
+                                }} className = "auth-sign-up-link">sign up</span>!</div>
                         </div>
                         <div className = "auth-error">{error}</div>
                     </div>
@@ -109,7 +144,10 @@ function Auth() {
                         </form>
                         <div style = {{display: "flex", flexDirection: "column", alignItems: "center", gap: "0.25rem"}}>
                             <div>Already have an account? </div>
-                            <div>Click here to <span onClick = {() => setShowSignUp(false)} className = "auth-sign-up-link">log in</span>!</div>
+                            <div>Click here to <span onClick = {() => {
+                                    setShowSignUp(false);
+                                    setError('');
+                                }} className = "auth-sign-up-link">log in</span>!</div>
                         </div>
                         <div className = "auth-error">{error}</div>
                     </div>

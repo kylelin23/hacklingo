@@ -61,7 +61,7 @@ app.post('/api/auth/login', async(req, res) => {
         const passwordCorrect = await bcrypt.compare(password, user.password_hash);
         if(passwordCorrect){
             const token = createToken(user.id);
-            res.status(200).json({ token});
+            res.status(200).json({ token });
         }
         else{
             res.status(401).json({ error: 'Incorrect password' });
