@@ -19,7 +19,7 @@ app.use(express.json());
 // });
 
 function createToken(userId) {
-    return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: '2d' });
+    return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: '1h' });
 }
 
 app.post('/api/users', async (req, res) => {
