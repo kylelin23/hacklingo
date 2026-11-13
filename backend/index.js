@@ -52,7 +52,6 @@ app.post('/api/auth/login', async(req, res) => {
 
     try {
         const users = await pool.query('SELECT users.id, users.password_hash FROM users WHERE users.email = $1', [email]);
-        // Check if no user was found
         const user = users.rows[0];
         if(!user){
             return res.status(401).json({ error: 'Email not registered' });
