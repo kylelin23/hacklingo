@@ -20,7 +20,7 @@ app.use(express.json());
 
 function createToken(userId) {
     return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: '1h' });
-}
+};
 
 app.post('/api/users', async (req, res) => {
     const { email, password } = req.body;
@@ -42,7 +42,7 @@ app.post('/api/users', async (req, res) => {
             res.status(500).json({ error: "Server error" });
         }
     }
-})
+});
 
 app.post('/api/auth/login', async(req, res) => {
     const { email, password } = req.body;
@@ -69,6 +69,22 @@ app.post('/api/auth/login', async(req, res) => {
         console.error(err);
         res.status(500).json({ error: "Server error" });
     }
-})
+});
+
+app.get('/api/auth/verify', (req, res) => {
+    const header = req.headers.authorization;
+    if(!header){
+        return res.status(401).json({ error: 'Not logged in' });
+    }
+    try {
+        const token = header.slice(7);
+        jwt.verify(token, process.env.JWT_SECRET);
+        res.status(200).json({ valid: true });
+    }
+    catch (err){
+        console.error(err);
+        res.status(401).json({ error: 'Not logged in' });
+    }
+});
 
 app.listen(3000, () => console.log('Server running on localhost:3000'));
