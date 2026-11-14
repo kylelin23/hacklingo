@@ -3,4 +3,4 @@
 | -------- | ------ | ----------- |
 | /users | POST | Adds a new user to the users table |
 | /auth/login | POST | Authenticates user |
-| /auth/verify | POST | Verifies JWT |
+| /auth/verify | GET | Verifies JWT |
