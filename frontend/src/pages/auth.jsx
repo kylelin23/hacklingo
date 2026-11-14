@@ -1,5 +1,5 @@
 import './auth.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 function Auth() {
@@ -9,6 +9,30 @@ function Auth() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        async function verify(){
+            const token = localStorage.getItem('token');
+            if(token){
+                try{
+                    const res = await fetch('/api/auth/verify', {
+                        headers: { Authorization: `Bearer ${token}` }
+                    });
+
+                    if(res.ok){
+                        navigate('/topics');
+                    }
+                    else{
+                        localStorage.removeItem('token');
+                    }
+                }
+                catch{
+                    console.log('Server error');
+                }
+            }
+        }
+        verify();
+    }, [])
 
     async function handleSignUp(e){
         e.preventDefault();
