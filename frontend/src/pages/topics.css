@@ -1,5 +1,18 @@
 .topics-navbar {
     display: flex;
     justify-content: space-between;
-    padding: 1rem;
+    padding: 1.5rem;
+    border-bottom: black 2px solid;
+    height: 3rem;
+    align-items: center;
+}
+
+.topics-back-button {
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: black;
+}
+
+.topics-back-button:hover {
+    color: #af6be3;
 }

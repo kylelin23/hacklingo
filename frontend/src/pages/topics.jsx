@@ -1,5 +1,5 @@
 import './topics.css';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Topics() {
     const navigate = useNavigate();
@@ -12,7 +12,7 @@ function Topics() {
     return (
         <div>
             <div className = "topics-navbar">
-                <div>Hacklingo</div>
+                <Link to = '/' className = "topics-back-button">Hacklingo</Link>
                 <button onClick = {handleSignOut}>
                     Sign Out
                 </button>
